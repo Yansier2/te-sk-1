@@ -102,6 +102,7 @@ const getDetails = async () => {
   productDetail(id.value)
     .then((res) => {
       detailData.value = res.data
+      console.log(detailData.value,'detailData',res.data)
     })
     .finally(() => {
       loading.value = false

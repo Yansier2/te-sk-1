@@ -25,7 +25,7 @@ first and service first. 💰💰💰Don't miss out on our 3th anniversary speci
   <script data-site="IHGLANPG" defer="" src="/js/script.js">
   </script>
   <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
-  
+
 </head>
 
 <body class="body-void">
@@ -53,7 +53,7 @@ first and service first. 💰💰💰Don't miss out on our 3th anniversary speci
     fbq('track', 'PageView')
 
     function trackAndNavigate(event, action, params, url) {
-      
+
       event.preventDefault() // 阻止默认跳转
       fbq('track', action, params) // 发送 Facebook 埋点
 
@@ -128,24 +128,24 @@ first and service first. 💰💰💰Don't miss out on our 3th anniversary speci
         <div class="profile-link-wrapper">
 
           <div id="itemapp">
-            
+
             <div class="itemappitem" v-for="(section, i) in products" :key="i">
-             
+
               <div class="divider-wrapper divider-wrapper_title divider-wrapper-top">
                 <h2 class="divider-title divider-title-dark" style="color: #4bdac0">
                   {{section.wrapper_title}}
                 </h2>
               </div>
-    
+
               <div class="link-item-wrapper" v-for="(sec,ix) in section.item_list" :key="ix">
                 <a class="link-button link-button-full-width link-button-void w-inline-block" href="javascript:void(0)"
                   id="MTExNzgzNjY"
                   @click="trackAndNavigatejump($event, sec.eventName , { content_category: sec.contentCategory }, sec.targetUrl)">
                   <div class="link-icon-float link-icon-float-circle"
                     style="box-shadow: 0 8px 14px -4px rgba(80, 80, 80, 0.65)">
-                    <div class="link-button-beacon link-button-beacon-circle" style="background-color: rgba(170, 170, 170, 0.85)" v-if="ix+1"></div>
-                    <img class="link-icon-float-image link-icon-float-image-circle"
-                      :src="sec.item_pic" />
+                    <div class="link-button-beacon link-button-beacon-circle"
+                      style="background-color: rgba(170, 170, 170, 0.85)" v-if="ix+1"></div>
+                    <img class="link-icon-float-image link-icon-float-image-circle" :src="sec.item_pic" />
                   </div>
                   <div class="link-block-text-wrapper">
                     <div class="link-name">
@@ -164,7 +164,7 @@ first and service first. 💰💰💰Don't miss out on our 3th anniversary speci
           </div>
 
 
-         
+
         </div>
       </div>
     </div>
@@ -188,8 +188,7 @@ first and service first. 💰💰💰Don't miss out on our 3th anniversary speci
   <script type="module">
     const { createApp } = Vue
     import { products } from './js/products.js'
-    console.log(products,'products',products[0].wrapper_title);
-    
+
     createApp({
       data() {
         return {
@@ -201,10 +200,21 @@ first and service first. 💰💰💰Don't miss out on our 3th anniversary speci
           event.preventDefault();
           fbq('track', action, params);
           setTimeout(() => {
-            
+
             window.location.href = url;
           }, 300);
         }
+      },
+      mounted() {
+        // 在页面加载完成时请求后端接口
+        fetch('/api/products')  // 这里应该是真实的请求地址
+          .then(response => response.json())
+          .then(data => {
+            this.products = data
+          })
+          .catch(error => {
+            console.error('Failed to obtain product data', error)
+          })
       }
     }).mount('#itemapp')
   </script>
