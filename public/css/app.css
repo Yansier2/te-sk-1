@@ -21,7 +21,16 @@
   --yellow: #f2ff49;
   --dim-theme: #2c313d
 }
-
+#itemapp{
+  width: 100%;
+  
+}
+.itemappitem{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
 .w-checkbox {
   margin-bottom: 5px;
   padding-left: 20px;

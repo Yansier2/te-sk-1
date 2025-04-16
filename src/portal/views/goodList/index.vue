@@ -1,5 +1,8 @@
 <template>
   <section style="background: #fff; overflow: hidden">
+    <el-icon size="24" @click="goBack" class="allpagegoback">
+      <ArrowLeft />
+    </el-icon>
     <section class="tabs">
       <section class="tabs-wrapper">
         <section class="tabs-items flex">
@@ -52,7 +55,10 @@ const products = ref([])
 const loading = ref(false)
 const noMoreData = ref(false)
 const globalStore = useGlobalStore()
-
+const goBack = () => {
+  
+  router.go(-1)
+}
 const getData = async (id) => {
   try {
     loading.value = true
@@ -176,5 +182,14 @@ onBeforeUnmount(() => {
     vertical-align: middle;
     width: 16px;
   }
+}
+.allpagegoback{
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  border: 1px solid grey;
+  border-radius: 14px;
+  z-index: 99;
+  cursor: pointer;
 }
 </style>
