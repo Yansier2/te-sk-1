@@ -63,41 +63,32 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { ElMessage } from 'element-plus'
-import axios from 'axios'
-import { products } from '../../../../../public/js/products'
+import { updateByKey, homePage } from '@/admin/api/index.js'
+// import {products} from '../../../../../public/js/products.js'
 
 const formData = ref([])
 const loading = ref(false)
 
-// onMounted(async () => {
-//     loading.value = true
-//     try {
-//         const res = await axios.get('/api/get-config')
-
-//         formData.value = res.data || []
-//     } catch (err) {
-//         ElMessage.error('获取页面数据失败')
-//     } finally {
-//         loading.value = false
-//     }
-
-// })
 onMounted(async () => {
     loading.value = true
-    const res = products
-    formData.value = res || []
-    loading.value = false
-    console.log(products);
-    
+
+    homePage().then((res) => {
+        formData.value = JSON.parse(res.data)
+        loading.value = false
+    })
 
 })
+// onMounted(async () => {
+// 恢复初始文件
+//     loading.value = true
+//     const res = products
+//     formData.value = res || []
+//     loading.value = false
+// })
 const submitForm = async () => {
-    try {
-        await axios.post('/api/update-config', formData.value)
+    updateByKey(JSON.stringify(formData.value)).then(() => {
         ElMessage.success('修改已提交')
-    } catch (error) {
-        ElMessage.error('提交失败，请重试')
-    }
+    })
 }
 const options = {
     item_pic: [

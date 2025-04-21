@@ -19,9 +19,46 @@ export function categoryTree() {
 }
 export function operateProduct(data) {
   return request({
-    url: '/sys/product/item',
-    method: data.goodsId ? 'put' : 'post',
+    url: '/sys/product/item/update',
+    method: data.goodsId ? 'post' : 'post',
     data
+  })
+}
+export function updateByKey(data) {
+  // 更新首页控制数据
+  return request({
+    url: '/system/config/updateByKey',
+    method: 'post',
+    data: {
+      configKey: "homePage",
+      configValue: data
+    }
+  })
+}
+export function homePage() {
+  // 查询首页控制数据
+  return request({
+    url: '/system/config/homePage',
+    method: 'get',
+  })
+}
+export function linkpageget() {
+  // 查询联系方式
+  return request({
+    url: '/system/config/contactInformation',
+    method: 'get',
+  })
+}
+export function linkpagechange(data) {
+  
+  // 修改联系方式
+  return request({
+    url: '/system/config/updateByKey',
+    method: 'post',
+    data: {
+      configKey: "contactInformation",
+      configValue: data
+    }
   })
 }
 export function deleteProduct(id) {

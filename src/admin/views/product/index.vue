@@ -31,9 +31,12 @@
               <img class="cursor-pointer" :src="row.imgSrc" alt="" width="40" @click="handlePreview(row.imgSrc)">
             </template>
           </el-table-column>
+          <el-table-column label="商品名称" prop="goodsName" />
           <el-table-column label="商品分类" prop="categoryName" />
+          <el-table-column label="商品详情" prop="goodsDetail" />
           <el-table-column label="进货价" prop="purchase" />
           <el-table-column label="标价" prop="listPrice" />
+          <el-table-column label="定价" prop="fixPrice" />
           <el-table-column label="售价" prop="sellingPrice" />
           <el-table-column label="操作" width="120">
             <template #default="{ row }">
@@ -49,14 +52,23 @@
       <el-tab-pane label="首页控制" name="homedata">
         <ControlCom />
       </el-tab-pane>
+      <el-tab-pane label="联系方式更改" name="linkpage">
+        <linkpage />
+      </el-tab-pane>
     </el-tabs>
   </section>
   <el-dialog v-model="dialogVisible" :close-on-click-modal="false" :close-on-press-escape="false" title="编辑">
     <el-skeleton :loading="loading" animated>
       <template #default>
         <el-form ref="formRef" :model="editData" label-width="auto">
-          <el-form-item label="标题" prop="title">
+          <el-form-item label="标题" prop="goodsName">
+            <el-input v-model="editData.goodsName" type="text" placeholder="请输入"></el-input>
+          </el-form-item>
+          <el-form-item label="名称" prop="title">
             <el-input v-model="editData.title" type="text" placeholder="请输入"></el-input>
+          </el-form-item>
+          <el-form-item label="详情" prop="title">
+            <el-input v-model="editData.goodsDetail" type="text" placeholder="请输入"></el-input>
           </el-form-item>
           <el-form-item label="详情图" prop="imgsSrc">
             <el-upload action="" list-type="picture-card" :file-list="fileList" :auto-upload="false"
@@ -76,6 +88,9 @@
           </el-form-item>
           <el-form-item label="进货价" prop="purchase">
             <el-input-number v-model="editData.purchase" :precision="2"></el-input-number>
+          </el-form-item>
+          <el-form-item label="定价" prop="fixPrice">
+            <el-input-number v-model="editData.fixPrice" :precision="2"></el-input-number>
           </el-form-item>
           <el-form-item label="标价" prop="listPrice">
             <el-input-number v-model="editData.listPrice" :precision="2"></el-input-number>
@@ -100,6 +115,7 @@
 import AppTable from '@/admin/components/table/index.vue'
 import CategoryCom from '@/admin/views/product/components/category.vue'
 import ControlCom from '@/admin/views/product/components/control.vue'
+import linkpage from '@/admin/views/product/components/linkpage.vue'
 import { getCurrentInstance, onMounted, ref } from 'vue'
 import { operateProduct, categoryList, deleteProduct, productDetail } from '@/admin/api/index.js'
 import { ElMessage, ElMessageBox, ElSkeleton } from 'element-plus'
@@ -135,7 +151,6 @@ const queryParams = () => {
 }
 
 const onRemove = (file) => {
-  console.log(fileList.value, file)
   fileList.value = fileList.value.filter(item => item.uid !== file.uid)
 }
 const uploadChange = (file, list) => {
@@ -164,7 +179,9 @@ const handleRemove = (file, fileListNow) => {
 }
 const handleEdit = (row) => {
   loading.value = true
+  
   productDetail(row.goodsId).then(res => {
+    
     editData.value = res.data
     fileList.value = res.data.imgsSrc.map(item => {
       return {

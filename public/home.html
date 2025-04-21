@@ -109,7 +109,7 @@ first and service first. 💰💰💰Don't miss out on our 3th anniversary speci
 
               <a class="minimal-button minimal-button-colorful minimal-button-colorful-void w-inline-block soc-whatsapp"
                 href="javascript:void(0)" id="wap"
-                onclick="trackAndNavigate(event, 'Openapp', { content_category: 'WS' }, 'https://wa.me/85298417675')">
+                onclick="trackAndNavigate(event, 'Openapp', { content_category: 'WS' }, this.dataset.link)">
                 <img alt="WhatsApp" class="minimal-button-icon" src="./img/whatsapp.svg" />
               </a>
               <a class="minimal-button minimal-button-colorful minimal-button-colorful-void w-inline-block soc-telegram"
@@ -186,13 +186,15 @@ first and service first. 💰💰💰Don't miss out on our 3th anniversary speci
     window.Arrive || document.write('<script src="/js/arrive-2.5.2.js"><\/script>')
   </script>
   <script type="module">
+
     const { createApp } = Vue
-    import { products } from './js/products.js'
+    // import { products } from './js/products.js'
+    import { homePage,linkpageget } from './src/admin/api/index.js'
 
     createApp({
       data() {
         return {
-          products
+          products: []
         }
       },
       methods: {
@@ -207,16 +209,18 @@ first and service first. 💰💰💰Don't miss out on our 3th anniversary speci
       },
       mounted() {
         // 在页面加载完成时请求后端接口
-        fetch('/api/products')  // 这里应该是真实的请求地址
-          .then(response => response.json())
-          .then(data => {
-            this.products = data
-          })
-          .catch(error => {
-            console.error('Failed to obtain product data', error)
-          })
+        homePage().then((res) => {
+          this.products = JSON.parse(res.data)
+        })
+        linkpageget().then((res)=>{
+          let phonelist = JSON.parse(res.data)
+
+          document.getElementById('wap').dataset.link = phonelist[0]
+        })
+        
       }
     }).mount('#itemapp')
+    
   </script>
 
 
