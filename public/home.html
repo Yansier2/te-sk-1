@@ -189,7 +189,7 @@ first and service first. 💰💰💰Don't miss out on our 3th anniversary speci
 
     const { createApp } = Vue
     // import { products } from './js/products.js'
-    import { homePage,linkpageget } from './src/admin/api/index.js'
+    import { homePage, linkpageget } from './src/admin/api/index.js'
 
     createApp({
       data() {
@@ -209,18 +209,34 @@ first and service first. 💰💰💰Don't miss out on our 3th anniversary speci
       },
       mounted() {
         // 在页面加载完成时请求后端接口
-        homePage().then((res) => {
-          this.products = JSON.parse(res.data)
-        })
-        linkpageget().then((res)=>{
-          let phonelist = JSON.parse(res.data)
 
-          document.getElementById('wap').dataset.link = phonelist[0]
-        })
-        
+        fetch('https://likesamethingd.buzz/system/config/homePage')
+          .then(response => response.json())  // 解析响应为 JSON
+          .then(data => {
+            console.log(data)
+            this.products = JSON.parse(data.data)
+          })     // 处理数据
+          .catch(error => console.error('Error:', error));  // 错误处理
+
+
+        fetch('https://likesamethingd.buzz/system/config/contactInformation')
+          .then(response => response.json())  // 解析响应为 JSON
+          .then(data => {
+            console.log(data)
+            let phonelist = JSON.parse(data.data)
+            document.getElementById('wap').dataset.link = phonelist[0]
+          })     // 处理数据
+          .catch(error => console.error('Error:', error));  // 错误处理
+        // linkpageget().then((res) => {
+
+        // })
+        // homePage().then((res) => {
+
+        // })
+
       }
     }).mount('#itemapp')
-    
+
   </script>
 
 
