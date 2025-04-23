@@ -24,6 +24,24 @@ export function operateProduct(data) {
     data
   })
 }
+export function updloadfilepic(data) {
+  // 图片上传
+  return request({
+    url: '/sys/config/uploadImage',
+    method: 'post',
+    data: {
+      file: data
+    }
+  })
+}
+export function saveitem(data) {
+  // 图片上传
+  return request({
+    url: '/sys/product/item/save',
+    method: 'post',
+    data
+  })
+}
 export function updateByKey(data) {
   // 更新首页控制数据
   return request({
@@ -50,7 +68,7 @@ export function linkpageget() {
   })
 }
 export function linkpagechange(data) {
-  
+
   // 修改联系方式
   return request({
     url: '/system/config/updateByKey',

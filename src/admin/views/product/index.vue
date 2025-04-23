@@ -22,7 +22,7 @@
             </el-col>
           </el-row>
         </el-form>
-        <el-button class="mb-4" @click="dialogVisible = true" type="primary">新增</el-button>
+        <el-button class="mb-4" @click="handleCreate('create')" type="primary">新增</el-button>
         <app-table ref="tableRef" url="/sys/product/item/list" :query-params="queryParams">
           <!--      <el-table-column label="商品ID" prop="goodsId" />-->
           <el-table-column label="标题" prop="title" min-width="300" />
@@ -67,13 +67,14 @@
           <el-form-item label="名称" prop="title">
             <el-input v-model="editData.title" type="text" placeholder="请输入"></el-input>
           </el-form-item>
-          <el-form-item label="详情" prop="title">
+          <el-form-item label="详情" prop="goodsDetail">
             <el-input v-model="editData.goodsDetail" type="text" placeholder="请输入"></el-input>
           </el-form-item>
           <el-form-item label="详情图" prop="imgsSrc">
-            <el-upload action="" list-type="picture-card" :file-list="fileList" :auto-upload="false"
-              :on-preview="handlePreview" :on-remove="handleRemove" :on-change="uploadChange"
-              :before-upload="beforeUpload" accept="image/*">
+            <el-upload action="https://likesamethingd.buzz/sys/upload/uploadImage" list-type="picture-card"
+              :file-list="fileList" :auto-upload="true" :on-preview="handlePreview" :on-remove="handleRemove"
+              :on-change="uploadChange" :on-success="handleUploadSuccess" :before-upload="beforeUpload"
+              accept="image/*">
               <i class="el-icon-plus" />
               +
             </el-upload>
@@ -117,7 +118,7 @@ import CategoryCom from '@/admin/views/product/components/category.vue'
 import ControlCom from '@/admin/views/product/components/control.vue'
 import linkpage from '@/admin/views/product/components/linkpage.vue'
 import { getCurrentInstance, onMounted, ref } from 'vue'
-import { operateProduct, categoryList, deleteProduct, productDetail } from '@/admin/api/index.js'
+import { operateProduct, categoryList, deleteProduct, productDetail, saveitem } from '@/admin/api/index.js'
 import { ElMessage, ElMessageBox, ElSkeleton } from 'element-plus'
 
 const activeTab = ref('product')
@@ -134,13 +135,17 @@ const editData = ref({
   categoryId: '',
   purchase: 0,
   listPrice: 0,
-  sellingPrice: 0
+  sellingPrice: 0,
+  goodsDetail:'',
+  fixPrice:0
 })
 const formRef = ref(null)
 const categoryOptions = ref([])
 const fileList = ref([])
 const app = getCurrentInstance()
 const loading = ref(false)
+// const uploadRef = ref(null)
+const core = ref('e')
 
 const queryParams = () => {
   const { keyword, categoryId } = searchForm.value
@@ -168,20 +173,61 @@ const handleReset = () => {
 }
 
 const beforeUpload = (file) => {
+  // https://likesamethingd.buzz/sys/upload/uploadImage
   const isImage = file.type.startsWith('image/')
   const isLt2M = file.size / 1024 / 1024 < 2
   if (!isImage) ElMessage.error('只能上传图片格式！')
   if (!isLt2M) ElMessage.error('图片大小不能超过 2MB！')
+  const formData = new FormData()
+  formData.append('file', file)
+
+  for (let [key, value] of formData.entries()) {
+    console.log(key, value)
+  }
   return isImage && isLt2M
+}
+const handleCreate = (str) => {
+  if (str === 'create') {
+    console.log(1);
+    core.value = 'c'
+    // 创建
+    editData.value = {
+      title: '',
+      imgsSrc: [],
+      markCode: '',
+      categoryId: '',
+      purchase: 0,
+      listPrice: 0,
+      sellingPrice: 0,
+      goodsDetail:'',
+      fixPrice:0
+    };
+    fileList.value = []
+    dialogVisible.value = true
+  }
+}
+const handleUploadSuccess = (response, file, fileListNow) => {
+
+  // 假设 response 中有图片 URL
+  fileList.value = fileListNow.map(item => {
+    if (item.url.startsWith('blob')) {
+      item.url = response.data[0]
+      item.status = 'success'
+    } else {
+      item.url = item.url
+    }
+
+  })
+
 }
 const handleRemove = (file, fileListNow) => {
   fileList.value = fileListNow
 }
 const handleEdit = (row) => {
   loading.value = true
-  
+  core.value = 'e'
   productDetail(row.goodsId).then(res => {
-    
+
     editData.value = res.data
     fileList.value = res.data.imgsSrc.map(item => {
       return {
@@ -212,16 +258,33 @@ const handleCancel = () => {
   dialogVisible.value = false
 }
 const handleSubmit = () => {
-  formRef.value.validate((valid) => {
-    if (valid) {
-      editData.value.imgsSrc = fileList.value.map(v => v.url || v.raw)
-      operateProduct(editData.value).then(() => {
-        ElMessage.success('编辑成功')
-        handleCancel()
-        handleSearch()
-      })
-    }
-  })
+  
+  if (core.value === 'e') {
+    formRef.value.validate((valid) => {
+      if (valid) {
+        editData.value.imgsSrc = fileList.value.map(v => v.url || v.raw)
+        operateProduct(editData.value).then(() => {
+          ElMessage.success('编辑成功')
+          handleCancel()
+          handleSearch()
+        })
+      }
+    })
+  }else if(core.value === 'c'){
+    // 创建
+    
+    formRef.value.validate((valid) => {
+      if (valid) {
+        editData.value.imgsSrc = fileList.value.map(v => v.url || v.raw)
+        saveitem(editData.value).then(() => {
+          ElMessage.success('创建成功')
+          handleCancel()
+          handleSearch()
+        })
+      }
+    })
+  }
+
 }
 const handlePreview = (src) => {
   app.appContext.config.globalProperties.$hevueImgPreview(src)
