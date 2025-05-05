@@ -1,20 +1,118 @@
 <template>
-  <div v-for="(item, index) in phonelist" :key="index" class="flex w-full justify-between mb-4 p-4">
-    <div class="text-lg leading-4" style="color: #7bbec5">WhatsApp</div>
-    <div class="mt-1 flex items-center">
-      <div class="font-500 mr-1">{{ item.non }}</div>
-      <el-icon @click="copyToClip(item.non)" class="cursor-pointer">
-        <CopyDocument />
-      </el-icon>
-    </div>
-    <el-button class="mt-5" type="success" round @click="toWhatsApp(item.url)">
-      <i class="wego-iconfont-s icon-WhatsApp mr-1"></i>
-      WhatsApp
-    </el-button>
+  <div class="popup-overlay" @click.self="toEmit">
+    <transition name="popup">
+      <div class="popup-container">
+        <div v-for="(item, index) in phonelist" :key="index" class="phone-item">
+          <div class="label">WhatsApp</div>
+          <div class="phone-info">
+            <div class="phone-number">{{ item.non }}</div>
+            <el-icon @click="copyToClip(item.non)" class="icon-copy">
+              <CopyDocument />
+            </el-icon>
+          </div>
+          <el-button class="whatsapp-button" type="success" round @click="toWhatsApp(item.url)">
+            <i class="wego-iconfont-s icon-WhatsApp"></i>
+            WhatsApp
+          </el-button>
+        </div>
+        <div class="separator"></div>
+        <div class="cancel-button" @click="toEmit">Cancel</div>
+      </div>
+    </transition>
   </div>
-  <div class="h-2" style="background: rgba(32, 47, 100, 0.03)"></div>
-  <div class="w-full cursor-pointer p-4 text-center" @click="toEmit">Cancel</div>
 </template>
+
+<style scoped>
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-container {
+  width: 100%;
+  max-height: 80vh; /* 最大高度为视口80% */
+  overflow-y: auto; /* 超出部分滚动 */
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+}
+
+.phone-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  padding: 12px;
+  background: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.label {
+  font-size: 16px;
+  font-weight: bold;
+  color: #7bbec5;
+  margin-bottom: 8px;
+}
+
+.phone-info {
+  display: flex;
+  align-items: center;
+  word-break: break-all;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.phone-number {
+  font-weight: 500;
+  margin-right: 8px;
+  flex: 1;
+}
+
+.icon-copy {
+  cursor: pointer;
+}
+
+.whatsapp-button {
+  width: 100%;
+}
+
+.separator {
+  height: 8px;
+  background: rgba(32, 47, 100, 0.03);
+  margin: 16px 0;
+}
+
+.cancel-button {
+  width: 100%;
+  text-align: center;
+  padding: 12px;
+  cursor: pointer;
+  color: #333;
+  font-size: 16px;
+  border-top: 1px solid #ddd;
+}
+
+/* 动画效果 */
+.popup-enter-active, .popup-leave-active {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.popup-enter-from, .popup-leave-to {
+  transform: scale(0.9);
+  opacity: 0;
+}
+</style>
+
 <script setup>
 import { ref, onMounted } from 'vue'
 import { CopyDocument } from '@element-plus/icons-vue'
@@ -31,7 +129,6 @@ const emits = defineEmits(['close'])
 const toEmit = () => {
   emits('close')
 }
-
 
 const copyToClip = (text) => {
   navigator.clipboard.writeText(text)
@@ -52,6 +149,7 @@ const toWhatsAppLink = () => {
   const wstext = `I want to know about this, the link is:${window.location.href}`
   location.href = line + encodeURIComponent(wstext)
 }
+
 let phonelist = ref([])
 const fetchInitialData = async () => {
   linkpageget().then((res) => {
@@ -67,15 +165,15 @@ const fetchInitialData = async () => {
         const match = url.match(/wa\.me\/(\d+)/)
         phone = match ? match[1] : url
       } else {
-        phone = url // 不符合条件的，non 就是原始值
+        phone = url
       }
 
       return { url, non: phone }
     })
-    console.log(phonelist.value, 'phonelist.value');
-
+    console.log(phonelist.value, 'phonelist.value')
   })
 }
+
 onMounted(() => {
   fetchInitialData()
 })

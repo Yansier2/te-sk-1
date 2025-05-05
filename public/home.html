@@ -202,7 +202,9 @@ first and service first. 💰💰💰Don't miss out on our 3th anniversary speci
           event.preventDefault();
           fbq('track', action, params);
           setTimeout(() => {
-
+            if(url === "https://api.whatsapp.com/send?phone=85298417675&text=Contact+me+-+start+a+conversation+%E2%86%91+%E2%86%91+%E2%86%91"){
+              url = "https://wa.me/message/MC3WR737UVTVI1"
+            }
             window.location.href = url;
           }, 300);
         }

@@ -278,9 +278,17 @@
     </div>
   </div>
 
-  <el-drawer v-model="contact" direction="btt" :show-close="false" size="150px" :with-header="false" :close-on-press-escape="false" :close-on-click-modal="false">
-    <connect-com @close="contact = false" />
-  </el-drawer>
+  <el-drawer
+      v-model="contact"
+      direction="btt"
+      :show-close="false"
+      size="auto"
+      :with-header="false"
+      :close-on-press-escape="true"
+      :close-on-click-modal="true"
+    >
+      <connect-com @close="contact = false" />
+    </el-drawer>
   <el-drawer v-model="category" direction="btt" :show-close="false" size="auto" :with-header="false">
     <category-com />
   </el-drawer>
