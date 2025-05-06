@@ -139,8 +139,10 @@ const toWhatsApp = (link) => {
   if (link) {
     fbq('track', 'Purchase', { content_ids: props.id, currency: 'USD', value: 30.0 })
     let finallink = extractPlainPhoneNumbers(link)[0]
-    finallink = "https://api.whatsapp.com/send?phone="+finallink+"&text="+`I want to know about this, the link is:${window.location.href}`
-    window.open(finallink, '_blank')
+    finallink = "https://api.whatsapp.com/send?phone="+finallink+"&text="
+    const wstext = `I want to know about this, the link is:${window.location.href}`
+    location.href = finallink + encodeURIComponent(wstext)
+    // window.open(finallink, '_blank')
   } else {
     toWhatsAppLink()
   }
