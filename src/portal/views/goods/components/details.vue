@@ -11,6 +11,8 @@
         <div class="title">
           <div class="title-font">
             {{ details.title }}
+            <br>
+            {{ textstr2s }}
           </div>
         </div>
         <a v-for="item in details.imgsSrc" href="javascript:void(0)" class="mul-item" :key="item">
@@ -41,6 +43,10 @@ const props = defineProps({
   details: {
     type: Object,
     default: () => ({}),
+  },
+  textstr2s:{
+    type:String,
+    default:()=>("")
   }
 })
 const expand = ref(false)

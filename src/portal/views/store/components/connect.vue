@@ -138,14 +138,20 @@ const copyToClip = (text) => {
 const toWhatsApp = (link) => {
   if (link) {
     fbq('track', 'Purchase', { content_ids: props.id, currency: 'USD', value: 30.0 })
-    window.open(link, '_blank')
+    let finallink = extractPlainPhoneNumbers(link)[0]
+    finallink = "https://api.whatsapp.com/send?phone="+finallink+"&text="+`I want to know about this, the link is:${window.location.href}`
+    window.open(finallink, '_blank')
   } else {
     toWhatsAppLink()
   }
 }
-
+function extractPlainPhoneNumbers(str) {
+    const regex = /\b\d{6,}\b/g;
+    const matches = str.match(regex);
+    return matches ? matches : [];
+}
 const toWhatsAppLink = () => {
-  const line = 'https://api.whatsapp.com/send?phone=85298417675&text='
+  const line = 'https://api.whatsapp.com/send?phone=85255949154&text='
   const wstext = `I want to know about this, the link is:${window.location.href}`
   location.href = line + encodeURIComponent(wstext)
 }

@@ -33,7 +33,7 @@
     </section>
     <shop />
     <recommend />
-    <details-com :details="detailData" />
+    <details-com :details="detailData" :textstr2s="textstr2"/>
   </section>
   <section class="bottom-btn py-1.5 px-4 fixed bottom-0 w-full bg-white z-50">
     <section class="h-9 rounded-3xl text-center text-sm flex items-center justify-center cursor-pointer"
