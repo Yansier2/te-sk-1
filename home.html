@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>
+    SilkRoad--High quality / low price
+  </title>
+  <meta content="SilkRoad--High quality / low price" property="og:title" />
+  <meta content="💓💓💓Welcome to SilkRoad store! For eight years, we have always insisted on quality
+first and service first. 💰💰💰Don't miss out on our 3th anniversary specials!" name="description" />
+  <meta content="💓💓💓Welcome to SilkRoad store! For eight years, we have always insisted on quality
+first and service first. 💰💰💰Don't miss out on our 3th anniversary specials!" property="og:description" />
+  <meta content="/img/summitchina.jpg" property="og:image" />
+  <meta content="image/jpeg" property="og:image:type" />
+  <meta content="1200" property="og:image:width" />
+  <meta content="630" property="og:image:height" />
+  <meta content="summary_large_image" name="twitter:card" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <meta content="#4BDAC0" name="theme-color" />
+  <link href="./img/favicon.png" rel="shortcut icon" type="image/x-icon" />
+  <link href="./img/65d70670ab27a6_17201164.jpg" rel="apple-touch-icon" />
+  <link href="./css/vendor.css" rel="stylesheet" type="text/css" />
+  <link href="./css/app.css" rel="stylesheet" type="text/css" />
+  <script data-site="IHGLANPG" defer="" src="/js/script.js">
+  </script>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+
+</head>
+
+<body class="body-void">
+  <!-- 像素跟蹤 每一个像素不一样-->
+  <!-- Meta Pixel Code -->
+  <script>
+    !(function (f, b, e, v, n, t, s) {
+      if (f.fbq) return
+      n = f.fbq = function () {
+        n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+      }
+      if (!f._fbq) f._fbq = n
+      n.push = n
+      n.loaded = !0
+      n.version = '2.0'
+      n.queue = []
+      t = b.createElement(e)
+      t.async = !0
+      t.src = v
+      s = b.getElementsByTagName(e)[0]
+      s.parentNode.insertBefore(t, s)
+    })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js')
+
+    fbq('init', '1396745368162685')
+    fbq('track', 'PageView')
+
+    function trackAndNavigate(event, action, params, url) {
+
+      event.preventDefault() // 阻止默认跳转
+      fbq('track', action, params) // 发送 Facebook 埋点
+
+      setTimeout(function () {
+        window.location.href = url // 延迟跳转，确保埋点请求发送
+      }, 300) // 300ms 延迟，通常足够让请求完成
+    }
+  </script>
+  <noscript>
+    <img height="1" src="https://www.facebook.com/tr?id=1165398771980997&amp;ev=PageView&amp;noscript=1"
+      style="display: none" width="1" />
+  </noscript>
+  <!-- End Meta Pixel Code -->
+  <div class="page-wrapper page-wrapper-linkpage" style="font-family: 'Chillax', sans-serif">
+    <div class="profile-bg-hero-wrapper" style="background-image: none">
+      <video autoplay="" class="video-bg" disablepictureinpicture="" id="video-bg" loop="" muted="" playsinline=""
+        poster="./img/b439df54e15b4f28ab7d87b28a6c7ced.jpg">
+      </video>
+      <div class="slice-div slice-div-large slice-div-large-void">
+      </div>
+
+    </div>
+    <div class="section info-card">
+      <div class="section-container">
+        <div class="profile-info-wrapper profile-info-wrapper-void">
+          <div class="profile-info-top-wrapper">
+            <div class="profile-image-wrapper">
+              <picture>
+                <source media="(max-width:479px)" srcset="./favicon.png" />
+                <img class="profile-image" decoding="async" src="./favicon.png" />
+              </picture>
+            </div>
+          </div>
+          <div class="profile-info-bottom-wrapper">
+            <div class="profile-name-wrapper">
+              <h1 class="profile-name">
+                SilkRoad--High quality / low price
+              </h1>
+            </div>
+            <div class="profile-location-box">
+              <img alt="Location" class="location-icon" src="./img/map-pin.svg" />
+              <div class="profile-location-text">
+                From China - own 4 factories
+              </div>
+            </div>
+            <p class="profile-bio profile-bio-dark">
+              💓💓💓Welcome to SilkRoad store! For eight years, we have always insisted on quality
+              first and service first. 💰💰💰Don't miss out on our 3th anniversary specials!
+            </p>
+          </div>
+          <div class="social-button-wrapper">
+            <div class="social-button-wrapper-row">
+
+              <a class="minimal-button minimal-button-colorful minimal-button-colorful-void w-inline-block soc-whatsapp"
+                href="javascript:void(0)" id="wap"
+                onclick="trackAndNavigate(event, 'Openapp', { content_category: 'WS' }, this.dataset.link)">
+                <img alt="WhatsApp" class="minimal-button-icon" src="./img/whatsapp.svg" />
+              </a>
+              <a class="minimal-button minimal-button-colorful minimal-button-colorful-void w-inline-block soc-telegram"
+                href="javascript:void(0)" id="tgm"
+                onclick="trackAndNavigate(event, 'Openapp', { content_category: 'TG' }, 'https://t.me/silkroad7_1')">
+                <img alt="Telegram" class="minimal-button-icon" src="./img/telegram.svg" />
+              </a>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section link-section">
+      <div class="section-container">
+        <div class="profile-link-wrapper">
+
+          <div id="itemapp">
+
+            <div class="itemappitem" v-for="(section, i) in products" :key="i">
+
+              <div class="divider-wrapper divider-wrapper_title divider-wrapper-top">
+                <h2 class="divider-title divider-title-dark" style="color: #4bdac0">
+                  {{section.wrapper_title}}
+                </h2>
+              </div>
+
+              <div class="link-item-wrapper" v-for="(sec,ix) in section.item_list" :key="ix">
+                <a class="link-button link-button-full-width link-button-void w-inline-block" href="javascript:void(0)"
+                  id="MTExNzgzNjY"
+                  @click="trackAndNavigatejump($event, sec.eventName , { content_category: sec.contentCategory }, sec.targetUrl)">
+                  <div class="link-icon-float link-icon-float-circle"
+                    style="box-shadow: 0 8px 14px -4px rgba(80, 80, 80, 0.65)">
+                    <div class="link-button-beacon link-button-beacon-circle"
+                      style="background-color: rgba(170, 170, 170, 0.85)" v-if="ix+1"></div>
+                    <img class="link-icon-float-image link-icon-float-image-circle" :src="sec.item_pic" />
+                  </div>
+                  <div class="link-block-text-wrapper">
+                    <div class="link-name">
+                      {{sec.displayName}}
+                    </div>
+                    <div class="link-url">
+                      {{sec.displayName2nd}}
+                    </div>
+                  </div>
+                  <div class="link-arrow-wrapper">
+                    <img class="link-arrows" src="./img/link-button-arrow.svg" />
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--  <div class="page-footer"><a href="https://solo.to/" class="linkpage-cta linkpage-cta-dark w-inline-block"><img-->
+  <!--    src="./img/solo-icon.svg" width="170" class="footer-brand-image">create your own-->
+  <!--    page</a></div>-->
+  <script crossorigin="anonymous" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+    src="https://code.jquery.com/jquery-3.7.1.min.js">
+    </script>
+  <script>
+    window.jQuery || document.write('<script src="/js/jquery-3.7.1.js"><\/script>')
+  </script>
+  <script crossorigin="anonymous"
+    integrity="sha512-jLj/JqNgSSmTQqG1dVYFcTMA/J6/L9TmfhlqtHEt3IoW0bsUSbHR/KnsFdu+ONqsmcOKuSuo9pItpR5nBDhKIA=="
+    referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/arrive/2.5.2/arrive.min.js">
+    </script>
+  <script>
+    window.Arrive || document.write('<script src="/js/arrive-2.5.2.js"><\/script>')
+  </script>
+  <script type="module">
+
+    const { createApp } = Vue
+    // import { products } from './js/products.js'
+    // import { homePage, linkpageget } from './src/admin/api/index.js'
+
+    createApp({
+      data() {
+        return {
+          products: []
+        }
+      },
+      methods: {
+        trackAndNavigatejump(event, action, params, url) {
+          event.preventDefault();
+          fbq('track', action, params);
+          setTimeout(() => {
+            if(url === "https://api.whatsapp.com/send?phone=85298417675&text=Contact+me+-+start+a+conversation+%E2%86%91+%E2%86%91+%E2%86%91"){
+              url = "https://wa.me/message/MC3WR737UVTVI1"
+            }
+            window.location.href = url;
+          }, 300);
+        }
+      },
+      mounted() {
+        // 在页面加载完成时请求后端接口
+
+        fetch('https://likesamethingd.buzz/system/config/homePage')
+          .then(response => response.json())  // 解析响应为 JSON
+          .then(data => {
+            console.log(data)
+            this.products = JSON.parse(data.data)
+          })     // 处理数据
+          .catch(error => console.error('Error:', error));  // 错误处理
+
+
+        fetch('https://likesamethingd.buzz/system/config/contactInformation')
+          .then(response => response.json())  // 解析响应为 JSON
+          .then(data => {
+            console.log(data)
+            let phonelist = JSON.parse(data.data)
+            document.getElementById('wap').dataset.link = phonelist[0]
+          })     // 处理数据
+          .catch(error => console.error('Error:', error));  // 错误处理
+        // linkpageget().then((res) => {
+        //   this.products = JSON.parse(data.data)
+        // })
+        // homePage().then((res) => {
+        //   let phonelist = JSON.parse(data.data)
+        //   document.getElementById('wap').dataset.link = phonelist[0]
+        // })
+
+      }
+    }).mount('#itemapp')
+
+  </script>
+
+
+  <script>
+    const i18n = {}
+  </script>
+  <script src="/js/page.js?i=c8f31ee9">
+  </script>
+  <script crossorigin="anonymous"
+    integrity="sha512-K3b+jr3mAO4+nJFVhM3ZwgvvdbhK/EL62AJo58jxqA0GkRDztR1wvUh/2Oj8kNuXzoqa7yNsI8H0+P1GC0sUWw=="
+    referrerpolicy="no-referrer"
+    src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.11.18/shaka-player.compiled.js">
+    </script>
+  <script>
+    window.shaka || document.write('<script src="/js/shaka-4.11.18.js"><\/script>')
+  </script>
+  <script>
+    const svid = new shaka.Player(document.getElementById('video-bg'))
+    svid.load(
+      'https://customer-kyy3146x635cmx5m.cloudflarestream.com/b439df54e15b4f28ab7d87b28a6c7ced/manifest/video.mpd',
+    )
+  </script>
+  <script async="" src="https://www.tiktok.com/embed.js">
+  </script>
+  <script src="/js/prefetch.js?i=dc93443b" type="module">
+  </script>
+</body>
+
+</html>
